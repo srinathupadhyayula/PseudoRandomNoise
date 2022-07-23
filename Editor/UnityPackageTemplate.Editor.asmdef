@@ -1,0 +1,16 @@
+{
+    "name": "UnityPackageTemplate.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:94cc9f15436720d4e8b134cd38bc270a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,22 @@
+{
+  "name": "com.thirdvertexstudios.scriptablevariables",
+  "version": "0.0.0",
+  "displayName": "Scriptable Variables",
+  "type": "tool",
+  "unity": "2021.3",
+  "keywords": [
+    "tools",
+    "scriptable",
+	"scriptableobjects",
+	"scriptablevariables",
+	"scriptable variables",
+	"scriptable objects",
+    "third vertex studios"
+  ],
+   "author": {
+    "name": "Srinath Upadhyayula",
+    "email": "srinathupadhyayula@gmail.com",
+    "url": "https://thirdvertexstudios.com/"
+  },
+  "description": "Scriptable variables based on Ryan Hipple's talk"
+}
