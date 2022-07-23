@@ -1,7 +1,11 @@
 {
-    "name": "UnityPackageTemplate",
+    "name": "PseudoRandomNoise.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:938f313d77a4de84687774be81cabda5",
+        "GUID:329b4ccd385744985bf3f83cfd77dfe7",
+        "GUID:b75d3cd3037d383a8d1e2f9a26d73d8a"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
