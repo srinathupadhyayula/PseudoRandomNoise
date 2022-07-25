@@ -9,14 +9,14 @@ using Types;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
+using ScheduleNoiseDelegate = Noise.ScheduleNoiseDelegate;
 
 namespace Visualizations
 {
     public class NoiseVisualization : Visualization
     {
-        private static readonly ScheduleDelegate[,] NoiseJobs =
+        private static readonly ScheduleNoiseDelegate[,] NoiseJobs =
         {
             {
                 NoiseJob<Lattice1D<LatticeNormal, Perlin>>.ScheduleParallel
@@ -147,23 +147,7 @@ namespace Visualizations
 
         private static readonly int NoiseId = Shader.PropertyToID("_Noise");
 
-        public enum NoiseType
-        {
-            Perlin
-          , PerlinTurbulence
-          , Value
-          , ValueTurbulence
-          , Simplex
-          , SimplexTurbulence
-          , SimplexValue
-          , SimplexValueTurbulence
-          , VoronoiWorleyF1
-          , VoronoiWorleyF2
-          , VoronoiWorleyF2MinusF1
-          , VoronoiChebyshevF1
-          , VoronoiChebyshevF2
-          , VoronoiChebyshevF2MinusF1
-        }
+        
 
         [SerializeField]              private NoiseSettings noiseSettings = NoiseSettings.Default;
         [SerializeField]              private NoiseType     type;

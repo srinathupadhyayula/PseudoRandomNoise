@@ -9,12 +9,12 @@ using Utilities;
 
 namespace Noise
 {
-    public delegate JobHandle ScheduleDelegate(NativeArray<float3x4> positions
-                                             , NativeArray<float4>   noise
-                                             , NoiseSettings         noiseSettings
-                                             , SpaceTRS              domainTRS
-                                             , int                   resolution
-                                             , JobHandle             dependency);
+    public delegate JobHandle ScheduleNoiseDelegate(NativeArray<float3x4> positions
+                                                  , NativeArray<float4>   noise
+                                                  , NoiseSettings         noiseSettings
+                                                  , SpaceTRS              domainTRS
+                                                  , int                   resolution
+                                                  , JobHandle             dependency);
     
     [BurstCompile(FloatPrecision.Standard, FloatMode.Fast, CompileSynchronously = true)]
     public struct NoiseJob<TNoise> : IJobFor where TNoise : struct, INoise
