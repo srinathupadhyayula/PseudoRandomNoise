@@ -6,73 +6,52 @@ namespace Noise
 {
 	public static partial class Noise
 	{
-
 		public interface IGradient
 		{
-			float4 Evaluate(SmallXxHash4 hash, float4 x);
-
-			float4 Evaluate(SmallXxHash4 hash, float4 x, float4 y);
-
-			float4 Evaluate(SmallXxHash4 hash, float4 x, float4 y, float4 z);
-
+			float4 Evaluate(SmallXxHash4   hash, float4 x);
+			float4 Evaluate(SmallXxHash4   hash, float4 x, float4 y);
+			float4 Evaluate(SmallXxHash4   hash, float4 x, float4 y, float4 z);
 			float4 EvaluateCombined(float4 value);
 		}
 
 		public struct Turbulence<G> : IGradient where G : struct, IGradient
 		{
-
-			public float4 Evaluate(SmallXxHash4 hash, float4 x) => default(G).Evaluate(hash, x);
-
-			public float4 Evaluate(SmallXxHash4 hash, float4 x, float4 y) => default(G).Evaluate(hash, x, y);
-
-			public float4 Evaluate(SmallXxHash4 hash, float4 x, float4 y, float4 z) => default(G).Evaluate(hash, x, y, z);
-
+			public float4 Evaluate(SmallXxHash4   hash, float4 x)                     => default(G).Evaluate(hash, x);
+			public float4 Evaluate(SmallXxHash4   hash, float4 x, float4 y)           => default(G).Evaluate(hash, x, y);
+			public float4 Evaluate(SmallXxHash4   hash, float4 x, float4 y, float4 z) => default(G).Evaluate(hash, x, y, z);
 			public float4 EvaluateCombined(float4 value) => abs(default(G).EvaluateCombined(value));
 		}
 
 		public struct Value : IGradient
 		{
-
-			public float4 Evaluate(SmallXxHash4 hash, float4 x) => hash.Floats01A * 2f - 1f;
-
-			public float4 Evaluate(SmallXxHash4 hash, float4 x, float4 y) => hash.Floats01A * 2f - 1f;
-
-			public float4 Evaluate(SmallXxHash4 hash, float4 x, float4 y, float4 z) => hash.Floats01A * 2f - 1f;
-
+			public float4 Evaluate(SmallXxHash4   hash, float4 x)                     => hash.Floats01A * 2f - 1f;
+			public float4 Evaluate(SmallXxHash4   hash, float4 x, float4 y)           => hash.Floats01A * 2f - 1f;
+			public float4 Evaluate(SmallXxHash4   hash, float4 x, float4 y, float4 z) => hash.Floats01A * 2f - 1f;
 			public float4 EvaluateCombined(float4 value) => value;
 		}
 
 		public struct Perlin : IGradient
 		{
-
-			public float4 Evaluate(SmallXxHash4 hash, float4 x) => BaseGradients.Line(hash, x);
-
+			public float4 Evaluate(SmallXxHash4 hash, float4 x)           => BaseGradients.Line(hash, x);
 			public float4 Evaluate(SmallXxHash4 hash, float4 x, float4 y) => BaseGradients.Square(hash, x, y) * (2f / 0.53528f);
-
 			public float4 Evaluate(SmallXxHash4 hash, float4 x, float4 y, float4 z) =>
 				BaseGradients.Octahedron(hash, x, y, z) * (1f / 0.56290f);
-
 			public float4 EvaluateCombined(float4 value) => value;
 		}
 
 		public struct Simplex : IGradient
 		{
-
-			public float4 Evaluate(SmallXxHash4 hash, float4 x) => BaseGradients.Line(hash, x) * (32f / 27f);
-
+			public float4 Evaluate(SmallXxHash4 hash, float4 x)           => BaseGradients.Line(hash, x)      * (32f    / 27f);
 			public float4 Evaluate(SmallXxHash4 hash, float4 x, float4 y) => BaseGradients.Circle(hash, x, y) * (5.832f / sqrt(2f));
-
 			public float4 Evaluate(SmallXxHash4 hash, float4 x, float4 y, float4 z) =>
 				BaseGradients.Sphere(hash, x, y, z) * (1024f / (125f * sqrt(3f)));
-
 			public float4 EvaluateCombined(float4 value) => value;
 		}
 
 		public static class BaseGradients
 		{
-
 			public static float4 Line(SmallXxHash4 hash, float4 x) => (1f + hash.Floats01A) * select(-x, x, ((uint4) hash & 1 << 8) == 0);
-
+			
 			public static float4 Square(SmallXxHash4 hash, float4 x, float4 y)
 			{
 				float4x2 v = SquareVectors(hash);

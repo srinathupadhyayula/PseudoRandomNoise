@@ -85,64 +85,62 @@ namespace Visualizations
 			}
 		   ,
 			{
-				Job<Voronoi1D<LatticeNormal, Worley, F1>>.ScheduleParallel
-			  , Job<Voronoi1D<LatticeTiling, Worley, F1>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeNormal, Worley, F1>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeTiling, Worley, F1>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeNormal, Worley, F1>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeTiling, Worley, F1>>.ScheduleParallel
+				Job<Voronoi1D<LatticeNormal, WorleyDistance, F1>>.ScheduleParallel
+			  , Job<Voronoi1D<LatticeTiling, WorleyDistance, F1>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeNormal, WorleyDistance, F1>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeTiling, WorleyDistance, F1>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeNormal, WorleyDistance, F1>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeTiling, WorleyDistance, F1>>.ScheduleParallel
 			}
 		   ,
 			{
-				Job<Voronoi1D<LatticeNormal, Worley, F2>>.ScheduleParallel
-			  , Job<Voronoi1D<LatticeTiling, Worley, F2>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeNormal, Worley, F2>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeTiling, Worley, F2>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeNormal, Worley, F2>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeTiling, Worley, F2>>.ScheduleParallel
+				Job<Voronoi1D<LatticeNormal, WorleyDistance, F2>>.ScheduleParallel
+			  , Job<Voronoi1D<LatticeTiling, WorleyDistance, F2>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeNormal, WorleyDistance, F2>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeTiling, WorleyDistance, F2>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeNormal, WorleyDistance, F2>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeTiling, WorleyDistance, F2>>.ScheduleParallel
 			}
 		   ,
 			{
-				Job<Voronoi1D<LatticeNormal, Worley, F2MinusF1>>.ScheduleParallel
-			  , Job<Voronoi1D<LatticeTiling, Worley, F2MinusF1>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeNormal, Worley, F2MinusF1>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeTiling, Worley, F2MinusF1>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeNormal, Worley, F2MinusF1>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeTiling, Worley, F2MinusF1>>.ScheduleParallel
+				Job<Voronoi1D<LatticeNormal, WorleyDistance, F2MinusF1>>.ScheduleParallel
+			  , Job<Voronoi1D<LatticeTiling, WorleyDistance, F2MinusF1>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeNormal, WorleyDistance, F2MinusF1>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeTiling, WorleyDistance, F2MinusF1>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeNormal, WorleyDistance, F2MinusF1>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeTiling, WorleyDistance, F2MinusF1>>.ScheduleParallel
 			}
 		   ,
 			{
-				Job<Voronoi1D<LatticeNormal, Worley, F1>>.ScheduleParallel
-			  , Job<Voronoi1D<LatticeTiling, Worley, F1>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeNormal, Chebyshev, F1>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeTiling, Chebyshev, F1>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeNormal, Chebyshev, F1>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeTiling, Chebyshev, F1>>.ScheduleParallel
+				Job<Voronoi1D<LatticeNormal, WorleyDistance, F1>>.ScheduleParallel
+			  , Job<Voronoi1D<LatticeTiling, WorleyDistance, F1>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeNormal, ChebyshevDistance, F1>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeTiling, ChebyshevDistance, F1>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeNormal, ChebyshevDistance, F1>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeTiling, ChebyshevDistance, F1>>.ScheduleParallel
 			}
 		   ,
 			{
-				Job<Voronoi1D<LatticeNormal, Worley, F2>>.ScheduleParallel
-			  , Job<Voronoi1D<LatticeTiling, Worley, F2>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeNormal, Chebyshev, F2>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeTiling, Chebyshev, F2>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeNormal, Chebyshev, F2>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeTiling, Chebyshev, F2>>.ScheduleParallel
+				Job<Voronoi1D<LatticeNormal, WorleyDistance, F2>>.ScheduleParallel
+			  , Job<Voronoi1D<LatticeTiling, WorleyDistance, F2>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeNormal, ChebyshevDistance, F2>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeTiling, ChebyshevDistance, F2>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeNormal, ChebyshevDistance, F2>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeTiling, ChebyshevDistance, F2>>.ScheduleParallel
 			}
 		   ,
 			{
-				Job<Voronoi1D<LatticeNormal, Worley, F2MinusF1>>.ScheduleParallel
-			  , Job<Voronoi1D<LatticeTiling, Worley, F2MinusF1>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeNormal, Chebyshev, F2MinusF1>>.ScheduleParallel
-			  , Job<Voronoi2D<LatticeTiling, Chebyshev, F2MinusF1>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeNormal, Chebyshev, F2MinusF1>>.ScheduleParallel
-			  , Job<Voronoi3D<LatticeTiling, Chebyshev, F2MinusF1>>.ScheduleParallel
+				Job<Voronoi1D<LatticeNormal, WorleyDistance, F2MinusF1>>.ScheduleParallel
+			  , Job<Voronoi1D<LatticeTiling, WorleyDistance, F2MinusF1>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeNormal, ChebyshevDistance, F2MinusF1>>.ScheduleParallel
+			  , Job<Voronoi2D<LatticeTiling, ChebyshevDistance, F2MinusF1>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeNormal, ChebyshevDistance, F2MinusF1>>.ScheduleParallel
+			  , Job<Voronoi3D<LatticeTiling, ChebyshevDistance, F2MinusF1>>.ScheduleParallel
 			}
 		};
 
 		private static readonly int NoiseId = Shader.PropertyToID("_Noise");
-
-		[SerializeField] private Settings noiseSettings = Settings.Default;
-
+		
 		public enum NoiseType
 		{
 			Perlin
@@ -161,17 +159,14 @@ namespace Visualizations
 		  , VoronoiChebyshevF2MinusF1
 		}
 
-		[SerializeField] private NoiseType type;
-
-		[SerializeField, Range(1, 3)] private int dimensions = 3;
-
-		[SerializeField] private bool tiling;
-
-		[SerializeField] private SpaceTRS domain = new SpaceTRS {scale = 8f};
+		[SerializeField]              private Settings  noiseSettings = Settings.Default;
+		[SerializeField]              private NoiseType type;
+		[SerializeField, Range(1, 3)] private int       dimensions = 3;
+		[SerializeField]              private bool      tiling;
+		[SerializeField]              private SpaceTRS  domain = new SpaceTRS {scale = 8f};
 
 		private NativeArray<float4> m_noise;
-
-		private ComputeBuffer m_noiseBuffer;
+		private ComputeBuffer       m_noiseBuffer;
 
 		protected override void EnableVisualization(int dataLength, MaterialPropertyBlock propertyBlock)
 		{

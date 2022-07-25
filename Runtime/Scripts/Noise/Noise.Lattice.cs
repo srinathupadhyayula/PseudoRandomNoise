@@ -6,7 +6,6 @@ namespace Noise
 {
 	public static partial class Noise
 	{
-
 		public struct LatticeSpan4
 		{
 			public int4   p0, p1;
@@ -16,14 +15,12 @@ namespace Noise
 
 		public interface ILattice
 		{
-			LatticeSpan4 GetLatticeSpan4(float4 coordinates, int frequency);
-
-			int4 ValidateSingleStep(int4 points, int frequency);
+			LatticeSpan4 GetLatticeSpan4(float4  coordinates, int frequency);
+			int4         ValidateSingleStep(int4 points,      int frequency);
 		}
 
 		public struct LatticeNormal : ILattice
 		{
-
 			public LatticeSpan4 GetLatticeSpan4(float4 coordinates, int frequency)
 			{
 				coordinates *= frequency;
@@ -43,7 +40,6 @@ namespace Noise
 
 		public struct LatticeTiling : ILattice
 		{
-
 			public LatticeSpan4 GetLatticeSpan4(float4 coordinates, int frequency)
 			{
 				coordinates *= frequency;
@@ -67,32 +63,34 @@ namespace Noise
 				select(select(points, 0, points == frequency), frequency - 1, points == -1);
 		}
 
-		public struct Lattice1D<L, G> : INoise
-			where L : struct, ILattice where G : struct, IGradient
+		public struct Lattice1D<TLattice, TGradient> : INoise
+			where TLattice : struct, ILattice 
+			where TGradient : struct, IGradient
 		{
 
 			public float4 GetNoise4(float4x3 positions, SmallXxHash4 hash, int frequency)
 			{
-				LatticeSpan4 x = default(L).GetLatticeSpan4(positions.c0, frequency);
+				LatticeSpan4 x = default(TLattice).GetLatticeSpan4(positions.c0, frequency);
 
-				var g = default(G);
+				var g = default(TGradient);
 				return g.EvaluateCombined(lerp(g.Evaluate(hash.Eat(x.p0), x.g0), g.Evaluate(hash.Eat(x.p1), x.g1), x.t));
 			}
 		}
 
-		public struct Lattice2D<L, G> : INoise
-			where L : struct, ILattice where G : struct, IGradient
+		public struct Lattice2D<TLattice, TGradient> : INoise
+			where TLattice : struct, ILattice 
+			where TGradient : struct, IGradient
 		{
 
 			public float4 GetNoise4(float4x3 positions, SmallXxHash4 hash, int frequency)
 			{
-				var l = default(L);
+				var l = default(TLattice);
 				LatticeSpan4
 					x = l.GetLatticeSpan4(positions.c0, frequency), z = l.GetLatticeSpan4(positions.c2, frequency);
 
 				SmallXxHash4 h0 = hash.Eat(x.p0), h1 = hash.Eat(x.p1);
 
-				var g = default(G);
+				var g = default(TGradient);
 				return g.EvaluateCombined(lerp(lerp(g.Evaluate(h0.Eat(z.p0), x.g0, z.g0),
 													g.Evaluate(h0.Eat(z.p1), x.g0, z.g1),
 													z.t),
@@ -103,13 +101,14 @@ namespace Noise
 			}
 		}
 
-		public struct Lattice3D<L, G> : INoise
-			where L : struct, ILattice where G : struct, IGradient
+		public struct Lattice3D<TLattice, TGradient> : INoise
+			where TLattice : struct, ILattice 
+			where TGradient : struct, IGradient
 		{
 
 			public float4 GetNoise4(float4x3 positions, SmallXxHash4 hash, int frequency)
 			{
-				var l = default(L);
+				var l = default(TLattice);
 				LatticeSpan4
 					x = l.GetLatticeSpan4(positions.c0, frequency)
 				  , y = l.GetLatticeSpan4(positions.c1, frequency)
@@ -123,7 +122,7 @@ namespace Noise
 				  , h10 = h1.Eat(y.p0)
 				  , h11 = h1.Eat(y.p1);
 
-				var g = default(G);
+				var g = default(TGradient);
 				return g.EvaluateCombined(lerp(lerp(lerp(g.Evaluate(h00.Eat(z.p0), x.g0, y.g0, z.g0),
 														 g.Evaluate(h00.Eat(z.p1), x.g0, y.g0, z.g1),
 														 z.t),

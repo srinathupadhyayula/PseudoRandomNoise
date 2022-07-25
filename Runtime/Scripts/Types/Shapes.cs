@@ -9,10 +9,10 @@ namespace Types
 {
 	public static class Shapes
 	{
-
 		public struct Point4
 		{
-			public float4x3 positions, normals;
+			public float4x3 positions;
+			public float4x3 normals;
 		}
 
 		public interface IShape
@@ -22,7 +22,6 @@ namespace Types
 
 		public struct Plane : IShape
 		{
-
 			public Point4 GetPoint4(int i, float resolution, float invResolution)
 			{
 				float4x2 uv = IndexTo4UV(i, resolution, invResolution);
@@ -32,7 +31,6 @@ namespace Types
 
 		public struct Sphere : IShape
 		{
-
 			public Point4 GetPoint4(int i, float resolution, float invResolution)
 			{
 				float4x2 uv = IndexTo4UV(i, resolution, invResolution);
@@ -56,14 +54,13 @@ namespace Types
 
 		public struct Torus : IShape
 		{
-
 			public Point4 GetPoint4(int i, float resolution, float invResolution)
 			{
 				float4x2 uv = IndexTo4UV(i, resolution, invResolution);
 
-				float  r1 = 0.375f;
-				float  r2 = 0.125f;
-				float4 s  = r1 + r2 * cos(2f * PI * uv.c1);
+				const float r1 = 0.375f;
+				const float r2 = 0.125f;
+				float4      s  = r1 + r2 * cos(2f * PI * uv.c1);
 
 				Point4 p;
 				p.positions.c0 =  s  * sin(2f * PI * uv.c0);
@@ -77,42 +74,45 @@ namespace Types
 		}
 
 		[BurstCompile(FloatPrecision.Standard, FloatMode.Fast, CompileSynchronously = true)]
-		public struct Job<S> : IJobFor where S : struct, IShape
+		public struct Job<TShape> : IJobFor where TShape : struct, IShape
 		{
+			[WriteOnly] private NativeArray<float3x4> m_positions;
+			[WriteOnly] private NativeArray<float3x4> m_normals;
 
-			[WriteOnly] private NativeArray<float3x4> m_positions, m_normals;
-
-			public float resolution, invResolution;
-
-			public float3x4 positionTRS, normalTRS;
+			private float    m_resolution;
+			private float    m_invResolution;
+			private float3x4 m_positionTRS;
+			private float3x4 m_normalTRS;
 
 			public void Execute(int i)
 			{
-				Point4 p = default(S).GetPoint4(i, resolution, invResolution);
+				Point4 p = default(TShape).GetPoint4(i, m_resolution, m_invResolution);
+				m_positions[i] = transpose(m_positionTRS.TransformVectors(p.positions));
 
-				m_positions[i] = transpose(positionTRS.TransformVectors(p.positions));
-
-				float3x4 n = transpose(normalTRS.TransformVectors(p.normals, 0f));
+				float3x4 n = transpose(m_normalTRS.TransformVectors(p.normals, 0f));
 				m_normals[i] = float3x4(normalize(n.c0), normalize(n.c1), normalize(n.c2), normalize(n.c3));
 			}
 
-			public static JobHandle ScheduleParallel(NativeArray<float3x4> positions,  NativeArray<float3x4> normals,
-													 int                   resolution, float4x4              trs, JobHandle dependency) =>
-				new Job<S>
+			public static JobHandle ScheduleParallel(NativeArray<float3x4> positions
+												   , NativeArray<float3x4> normals
+												   , int                   resolution
+												   , float4x4              trs
+												   , JobHandle             dependency) =>
+				new Job<TShape>
 				{
 					m_positions     = positions
 				  , m_normals       = normals
-				  , resolution    = resolution
-				  , invResolution = 1f / resolution
-				  , positionTRS   = trs.Get3X4()
-				  , normalTRS     = transpose(inverse(trs)).Get3X4()
+				  , m_resolution    = resolution
+				  , m_invResolution = 1f / resolution
+				  , m_positionTRS   = trs.Get3X4()
+				  , m_normalTRS     = transpose(inverse(trs)).Get3X4()
 				}.ScheduleParallel(positions.Length, resolution, dependency);
 		}
 
 		public delegate JobHandle ScheduleDelegate(NativeArray<float3x4> positions,  NativeArray<float3x4> normals,
 												   int                   resolution, float4x4              trs, JobHandle dependency);
 
-		public static float4x2 IndexTo4UV(int i, float resolution, float invResolution)
+		private static float4x2 IndexTo4UV(int i, float resolution, float invResolution)
 		{
 			float4x2 uv;
 			float4   i4 = 4f * i + float4(0f, 1f, 2f, 3f);

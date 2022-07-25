@@ -7,7 +7,7 @@ namespace Noise
 	public static partial class Noise
 	{
 
-		public struct Simplex1D<G> : INoise where G : struct, IGradient
+		public struct Simplex1D<TGradient> : INoise where TGradient : struct, IGradient
 		{
 
 			public float4 GetNoise4(float4x3 positions, SmallXxHash4 hash, int frequency)
@@ -15,7 +15,7 @@ namespace Noise
 				positions *= frequency;
 				int4 x0 = (int4) floor(positions.c0), x1 = x0 + 1;
 
-				return default(G).EvaluateCombined(Kernel(hash.Eat(x0), x0, positions) + Kernel(hash.Eat(x1), x1, positions));
+				return default(TGradient).EvaluateCombined(Kernel(hash.Eat(x0), x0, positions) + Kernel(hash.Eat(x1), x1, positions));
 			}
 
 			private static float4 Kernel(SmallXxHash4 hash, float4 lx, float4x3 positions)
@@ -23,11 +23,11 @@ namespace Noise
 				float4 x = positions.c0 - lx;
 				float4 f = 1f           - x * x;
 				f = f * f * f;
-				return f * default(G).Evaluate(hash, x);
+				return f * default(TGradient).Evaluate(hash, x);
 			}
 		}
 
-		public struct Simplex2D<G> : INoise where G : struct, IGradient
+		public struct Simplex2D<TGradient> : INoise where TGradient : struct, IGradient
 		{
 
 			public float4 GetNoise4(float4x3 positions, SmallXxHash4 hash, int frequency)
@@ -44,7 +44,7 @@ namespace Noise
 				SmallXxHash4
 					h0 = hash.Eat(x0), h1 = hash.Eat(x1), hC = SmallXxHash4.Select(h0, h1, xGz);
 
-				return default(G).EvaluateCombined(Kernel(h0.Eat(z0), x0, z0, positions)
+				return default(TGradient).EvaluateCombined(Kernel(h0.Eat(z0), x0, z0, positions)
 												 + Kernel(h1.Eat(z1), x1, z1, positions)
 												 + Kernel(hC.Eat(zC), xC, zC, positions));
 			}
@@ -55,11 +55,11 @@ namespace Noise
 				float4 x      = positions.c0 - lx + unskew, z = positions.c2 - lz + unskew;
 				float4 f      = 0.5f              - x * x                         - z * z;
 				f = f * f * f * 8f;
-				return max(0f, f) * default(G).Evaluate(hash, x, z);
+				return max(0f, f) * default(TGradient).Evaluate(hash, x, z);
 			}
 		}
 
-		public struct Simplex3D<G> : INoise where G : struct, IGradient
+		public struct Simplex3D<TGradient> : INoise where TGradient : struct, IGradient
 		{
 
 			public float4 GetNoise4(float4x3 positions, SmallXxHash4 hash, int frequency)
@@ -93,7 +93,7 @@ namespace Noise
 				SmallXxHash4
 					h0 = hash.Eat(x0), h1 = hash.Eat(x1), hA = SmallXxHash4.Select(h0, h1, xA), hB = SmallXxHash4.Select(h0, h1, xB);
 
-				return default(G).EvaluateCombined(Kernel(h0.Eat(y0).Eat(z0),   x0,  y0,  z0,  positions)
+				return default(TGradient).EvaluateCombined(Kernel(h0.Eat(y0).Eat(z0),   x0,  y0,  z0,  positions)
 												 + Kernel(h1.Eat(y1).Eat(z1),   x1,  y1,  z1,  positions)
 												 + Kernel(hA.Eat(yCa).Eat(zCa), xCa, yCa, zCa, positions)
 												 + Kernel(hB.Eat(yCb).Eat(zCb), xCb, yCb, zCb, positions));
@@ -106,7 +106,7 @@ namespace Noise
 					x = positions.c0 - lx + unskew, y = positions.c1 - ly + unskew, z = positions.c2 - lz + unskew;
 				float4 f = 0.5f - x * x - y * y - z * z;
 				f = f * f * f * 8f;
-				return max(0f, f) * default(G).Evaluate(hash, x, y, z);
+				return max(0f, f) * default(TGradient).Evaluate(hash, x, y, z);
 			}
 		}
 	}

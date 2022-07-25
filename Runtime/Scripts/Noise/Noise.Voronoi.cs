@@ -16,16 +16,16 @@ namespace Noise
 			return minima;
 		}
 
-		public struct Voronoi1D<L, D, F> : INoise
-			where L : struct, ILattice
-			where D : struct, IVoronoiDistance
-			where F : struct, IVoronoiFunction
+		public struct Voronoi1D<TLattice, TVoronoiDistance, TVoronoiFunction> : INoise
+			where TLattice : struct, ILattice
+			where TVoronoiDistance : struct, IVoronoiDistance
+			where TVoronoiFunction : struct, IVoronoiFunction
 		{
 
 			public float4 GetNoise4(float4x3 positions, SmallXxHash4 hash, int frequency)
 			{
-				var          l = default(L);
-				var          d = default(D);
+				var          l = default(TLattice);
+				var          d = default(TVoronoiDistance);
 				LatticeSpan4 x = l.GetLatticeSpan4(positions.c0, frequency);
 
 				float4x2 minima = 2f;
@@ -36,20 +36,20 @@ namespace Noise
 						UpdateVoronoiMinima(minima, d.GetDistance(h.Floats01A + u - x.g0));
 				}
 
-				return default(F).Evaluate(d.Finalize1D(minima));
+				return default(TVoronoiFunction).Evaluate(d.Finalize1D(minima));
 			}
 		}
 
-		public struct Voronoi2D<L, D, F> : INoise
-			where L : struct, ILattice
-			where D : struct, IVoronoiDistance
-			where F : struct, IVoronoiFunction
+		public struct Voronoi2D<TLattice, TVoronoiDistance, TVoronoiFunction> : INoise
+			where TLattice : struct, ILattice
+			where TVoronoiDistance : struct, IVoronoiDistance
+			where TVoronoiFunction : struct, IVoronoiFunction
 		{
 
 			public float4 GetNoise4(float4x3 positions, SmallXxHash4 hash, int frequency)
 			{
-				var l = default(L);
-				var d = default(D);
+				var l = default(TLattice);
+				var d = default(TVoronoiDistance);
 				LatticeSpan4
 					x = l.GetLatticeSpan4(positions.c0, frequency), z = l.GetLatticeSpan4(positions.c2, frequency);
 
@@ -67,20 +67,20 @@ namespace Noise
 					}
 				}
 
-				return default(F).Evaluate(d.Finalize2D(minima));
+				return default(TVoronoiFunction).Evaluate(d.Finalize2D(minima));
 			}
 		}
 
-		public struct Voronoi3D<L, D, F> : INoise
-			where L : struct, ILattice
-			where D : struct, IVoronoiDistance
-			where F : struct, IVoronoiFunction
+		public struct Voronoi3D<TLattice, TVoronoiDistance, TVoronoiFunction> : INoise
+			where TLattice : struct, ILattice
+			where TVoronoiDistance : struct, IVoronoiDistance
+			where TVoronoiFunction : struct, IVoronoiFunction
 		{
 
 			public float4 GetNoise4(float4x3 positions, SmallXxHash4 hash, int frequency)
 			{
-				var l = default(L);
-				var d = default(D);
+				var l = default(TLattice);
+				var d = default(TVoronoiDistance);
 				LatticeSpan4
 					x = l.GetLatticeSpan4(positions.c0, frequency)
 				  , y = l.GetLatticeSpan4(positions.c1, frequency)
@@ -110,7 +110,7 @@ namespace Noise
 					}
 				}
 
-				return default(F).Evaluate(d.Finalize3D(minima));
+				return default(TVoronoiFunction).Evaluate(d.Finalize3D(minima));
 			}
 		}
 	}
