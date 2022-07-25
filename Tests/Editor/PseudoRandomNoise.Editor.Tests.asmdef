@@ -1,10 +1,13 @@
 {
-    "name": "UnityPackageTemplate.Tests",
+    "name": "PseudoRandomNoise.Editor.Tests",
     "rootNamespace": "",
     "references": [
         "GUID:0acc523941302664db1f4e527237feb3",
         "GUID:27619889b8ba8c24980f49ee34dbb44a",
-        "GUID:94cc9f15436720d4e8b134cd38bc270a"
+        "GUID:938f313d77a4de84687774be81cabda5",
+        "GUID:1c37feff99f720d409ee28d2a4870ea1",
+        "GUID:904d80dccad704a3f95e42bd0ad5d960",
+        "GUID:15ce69d7d9d9370c9704e0797a0ab06b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
